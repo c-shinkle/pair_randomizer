@@ -27,25 +27,26 @@ def main():
     owner_pairs = []
 
     for owner in owner_set:
-        random_free = choice(free_list)
-        owner_pairs.append((owner, random_free))
-        free_list.remove(random_free)
+        owner_pairs.append((owner, (sample_no_replace(free_list))))
 
     print("Here's the owner pairs:")
     print(owner_pairs)
 
     remaining_pairs = []
     while len(free_list) >= 2:
-        pair = tuple(sample(free_list, 2))
-        remaining_pairs.append(pair)
-        free_list.remove(pair[0])
-        free_list.remove(pair[1])
+        remaining_pairs.append((sample_no_replace(free_list), sample_no_replace(free_list)))
 
     print("Here's the remaining pairs:")
     print(remaining_pairs)
 
     if len(free_list) == 1:
         print(f'{free_list[0]} is on his own!')
+
+
+def sample_no_replace(seq):
+    result = choice(seq)
+    seq.remove(result)
+    return result
 
 
 if __name__ == '__main__':
