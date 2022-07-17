@@ -1,5 +1,4 @@
-from random import choice
-from typing import List
+from src.utils import sample_no_replace, is_empty_string
 
 all_engineer_set = {
     'christian',
@@ -17,7 +16,7 @@ def main():
     raw_missing = input('Who is gone today? (Comma separated list)\n')
     missing_set = set(token.strip().lower() for token in raw_missing.split(',') if not is_empty_string(token))
     if not missing_set.issubset(all_engineer_set):
-        print('The missing engineers you listed are not a subset of the current team.')
+        print('The engineers you listed are not a subset of the current team.')
         print('Check for typos or update "all_engineers_set".')
         print(missing_set)
         return
@@ -27,7 +26,7 @@ def main():
     raw_owners = input('Who owns a story? (Comma separated list)\n')
     owner_set = set(token.strip().lower() for token in raw_owners.split(',') if not is_empty_string(token))
     if not owner_set.issubset(all_engineer_set):
-        print('The owners you listed are not a subset of the current team.')
+        print('The engineers you listed are not a subset of the current team.')
         print('Check for typos or update "all_engineers_set".')
         print(owner_set)
         return
@@ -44,16 +43,6 @@ def main():
 
     if len(free_engineer_list) == 1:
         print(f'{free_engineer_list[0]} is on his own!')
-
-
-def is_empty_string(string: str) -> bool:
-    return string.isspace() or len(string) == 0
-
-
-def sample_no_replace(seq: List[str]) -> str:
-    result = choice(seq)
-    seq.remove(result)
-    return result
 
 
 if __name__ == '__main__':
