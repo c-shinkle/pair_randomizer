@@ -9,4 +9,4 @@ You can find [install instructions here](https://www.python.org/downloads/).
 
 ### Instructions
 
-To run, simply run the following command: `python main.py`
+To run: `python main.py`
