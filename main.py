@@ -1,9 +1,11 @@
-from utils import parse_input_to_set, sample_no_replace
+from random import choice
+from typing import Set, List, Optional
 
 
 def main():
     all_engineer_set = {
         'christian',
+        'eric',
         'girish',
         'jason',
         'kyle',
@@ -13,8 +15,7 @@ def main():
         'tyler',
     }
 
-    missing_set: set[str] | None = parse_input_to_set('Who is gone today? (Comma separated list)\n',
-                                                      all_engineer_set)
+    missing_set = parse_input_to_set('Who is gone today? (Comma separated list)\n', all_engineer_set)
     if missing_set is None:
         return
 
@@ -36,6 +37,28 @@ def main():
 
     if len(free_engineers) == 1:
         print(f'{free_engineers[0]} is on his own!')
+
+
+def parse_input_to_set(prompt: str, engineer_set: Set[str]) -> Optional[Set[str]]:
+    raw_input = input(prompt)
+    input_set = set(token.strip().lower() for token in raw_input.split(',') if not is_empty_string(token))
+    if input_set.issubset(engineer_set):
+        return input_set
+    else:
+        print('The engineers you listed are not a subset of the current team.')
+        print('Check for typos or update "all_engineers_set".')
+        print(input_set)
+        return None
+
+
+def is_empty_string(string: str) -> bool:
+    return string.isspace() or len(string) == 0
+
+
+def sample_no_replace(seq: List[str]) -> str:
+    result = choice(seq)
+    seq.remove(result)
+    return result
 
 
 if __name__ == '__main__':
